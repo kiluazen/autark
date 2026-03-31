@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autark — Your Upwork proposals now include a working app</title>
+  <meta name="description" content="Autark applies to Upwork jobs with a working prototype already built and deployed. Not a cover letter. A live demo." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #1a1a1a;
+      --white: #fafafa;
+      --yellow: #ffe144;
+      --blue: #4d7cff;
+      --pink: #ff6b9d;
+      --green: #3ddc84;
+      --border: 3px solid var(--black);
+      --shadow: 6px 6px 0 var(--black);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      border-bottom: var(--border);
+    }
+
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--black);
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.4rem 0.8rem;
+      border: 2px solid var(--black);
+      background: var(--yellow);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 5rem 2rem 4rem;
+      max-width: 900px;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    h1 .highlight {
+      background: var(--yellow);
+      padding: 0 0.15em;
+      display: inline;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #444;
+      max-width: 620px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-sub strong { color: var(--black); }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.9rem 2rem;
+      border: var(--border);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.1s, box-shadow 0.1s;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0 var(--black);
+    }
+
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--black);
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--black);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-ghost {
+      background: var(--white);
+      color: var(--black);
+      box-shadow: var(--shadow);
+    }
+
+    /* ─── THE PROBLEM ─── */
+    .problem {
+      border-top: var(--border);
+      padding: 4rem 2rem;
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 900px;
+    }
+
+    .problem-card {
+      border: 2px solid rgba(255,255,255,0.2);
+      padding: 2rem;
+    }
+
+    .problem-card .label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #999;
+      margin-bottom: 1rem;
+    }
+
+    .problem-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      line-height: 1.3;
+    }
+
+    .problem-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #aaa;
+    }
+
+    .problem-card .strike {
+      text-decoration: line-through;
+      color: #666;
+    }
+
+    .problem-card .solve {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .how {
+      border-top: var(--border);
+      padding: 4rem 2rem;
+    }
+
+    .how h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      max-width: 900px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 900px;
+    }
+
+    .step {
+      border: var(--border);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      background: var(--white);
+    }
+
+    .step-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .step-num.c1 { color: var(--blue); }
+    .step-num.c2 { color: var(--pink); }
+    .step-num.c3 { color: var(--green); }
+
+    .step h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #555;
+    }
+
+    /* ─── THE DIFFERENCE ─── */
+    .diff {
+      border-top: var(--border);
+      padding: 4rem 2rem;
+      background: var(--yellow);
+    }
+
+    .diff-inner {
+      max-width: 900px;
+    }
+
+    .diff h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .compare-card {
+      border: var(--border);
+      padding: 1.5rem;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .compare-card .label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      color: #999;
+    }
+
+    .compare-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .compare-card li {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .compare-card li::before {
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+    }
+
+    .them li::before { content: "x"; color: #cc3333; }
+    .us li::before { content: ">"; color: var(--green); font-family: 'Space Mono', monospace; }
+
+    /* ─── WAITLIST ─── */
+    .waitlist {
+      border-top: var(--border);
+      padding: 4rem 2rem;
+    }
+
+    .waitlist-inner {
+      max-width: 560px;
+    }
+
+    .waitlist h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .waitlist p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .form-row input {
+      flex: 1;
+      padding: 0.85rem 1rem;
+      border: var(--border);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      background: var(--white);
+      outline: none;
+    }
+
+    .form-row input:focus {
+      box-shadow: 4px 4px 0 var(--yellow);
+    }
+
+    .form-row button {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 1.6rem;
+      border: var(--border);
+      background: var(--black);
+      color: var(--white);
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.1s, box-shadow 0.1s;
+      white-space: nowrap;
+    }
+
+    .form-row button:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0 var(--black);
+    }
+
+    .form-row button:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--black);
+    }
+
+    .form-note {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: #999;
+      margin-top: 0.8rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: var(--border);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    .footer-links a {
+      color: #999;
+      text-decoration: none;
+      transition: color 0.15s;
+      display: inline-flex;
+    }
+
+    .footer-links a:hover { color: var(--black); }
+    .footer-links svg { width: 18px; height: 18px; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      .hero { padding: 3rem 1.5rem; }
+      .problem { padding: 3rem 1.5rem; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .how { padding: 3rem 1.5rem; }
+      .steps { grid-template-columns: 1fr; }
+      .diff { padding: 3rem 1.5rem; }
+      .compare { grid-template-columns: 1fr; }
+      .waitlist { padding: 3rem 1.5rem; }
+      .form-row { flex-direction: column; }
+      footer { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">autark</a>
+  <div class="nav-right">
+    <span class="tag">Early Access</span>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <h1>
+    Your Upwork proposal<br>
+    now includes a<br>
+    <span class="highlight">working app.</span>
+  </h1>
+  <p class="hero-sub">
+    An AI agent that applies to Upwork jobs on your behalf. It picks jobs where the client will actually read your proposal. Then it <strong>builds and deploys a working prototype</strong> and submits it as your proposal. Not a cover letter. A live link.
+  </p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#waitlist">Join the waitlist</a>
+    <a class="btn btn-ghost" href="#how">How it works</a>
+  </div>
+</section>
+
+<!-- ─── TWO PROBLEMS, BOTH SOLVED ─── -->
+<section class="problem">
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="label">Problem 1</div>
+      <h3>The client never opens your proposal</h3>
+      <p>
+        30+ proposals on a job. Client opens 5. You're not in the 5.
+        Doesn't matter how good your proposal was.
+      </p>
+      <p style="margin-top: 1rem;">
+        <span class="strike">Spray and pray</span><br>
+        <span class="solve">Autark only applies where the client is actively reviewing. Low proposal count, recent activity, verified payment. If they won't look, we don't waste your connects.</span>
+      </p>
+    </div>
+    <div class="problem-card">
+      <div class="label">Problem 2</div>
+      <h3>Your proposal looks like everyone else's</h3>
+      <p>
+        "I have 5 years experience in React..." Cool. So do 40 other people in that inbox.
+      </p>
+      <p style="margin-top: 1rem;">
+        <span class="strike">Another cover letter</span><br>
+        <span class="solve">Autark builds the thing they asked for, deploys it, and links it in the proposal. Client opens your proposal and sees a working app. Game over.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section class="how" id="how">
+  <h2>You log in. The agent does the rest.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num c1">01</div>
+      <h3>Finds the right job</h3>
+      <p>Scans every new posting. Filters by client activity, proposal count, hire history. Only picks jobs where the client will actually open your proposal.</p>
+    </div>
+    <div class="step">
+      <div class="step-num c2">02</div>
+      <h3>Builds a working prototype</h3>
+      <p>Reads the job description. Figures out the core deliverable. Builds it, deploys it, gets a live URL. Sample data pre-loaded, real logic running.</p>
+    </div>
+    <div class="step">
+      <div class="step-num c3">03</div>
+      <h3>Submits the proposal</h3>
+      <p>Writes a sharp proposal with the live link. The client opens it and sees the job half-done. You're not competing anymore. You already started.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── THE DIFFERENCE ─── -->
+<section class="diff">
+  <div class="diff-inner">
+    <h2>Every other tool writes a better cover letter. We skip the letter.</h2>
+    <div class="compare">
+      <div class="compare-card them">
+        <div class="label">Upwex, GigRadar, etc.</div>
+        <ul>
+          <li>AI-generated cover letter</li>
+          <li>"I have experience in..."</li>
+          <li>Client reads 5 words, skips</li>
+          <li>Same as 40 other proposals</li>
+        </ul>
+      </div>
+      <div class="compare-card us">
+        <div class="label">Autark</div>
+        <ul>
+          <li>Working deployed prototype</li>
+          <li>"Here, try it yourself"</li>
+          <li>Client clicks the link, sees the app</li>
+          <li>Nobody else in the inbox did this</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WAITLIST ─── -->
+<section class="waitlist" id="waitlist">
+  <div class="waitlist-inner">
+    <h2>Early access.</h2>
+    <p>Autark is in development. Join the waitlist and be first to use it.</p>
+    <div class="form-row">
+      <input type="email" placeholder="your@email.com" autocomplete="email" />
+      <button onclick="handleSubmit(event)">Join</button>
+    </div>
+    <p class="form-note">No spam. Just a ping when it's ready.</p>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-left">autark -- built by Kushal</span>
+  <div class="footer-links">
+    <a href="https://twitter.com/KushalSM5" target="_blank" rel="noopener" aria-label="X (Twitter)">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a href="https://github.com/kiluazen" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+    </a>
+  </div>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const input = e.target.previousElementSibling;
+    const email = input.value.trim();
+    if (!email || !email.includes('@')) {
+      input.style.borderColor = '#cc3333';
+      input.focus();
+      return;
+    }
+    const btn = e.target;
+    btn.textContent = "You're in";
+    btn.style.background = '#3ddc84';
+    btn.style.color = '#1a1a1a';
+    btn.disabled = true;
+    input.disabled = true;
+    input.style.opacity = '0.5';
+  }
+</script>
+
+</body>
+</html>
