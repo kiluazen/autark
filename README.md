@@ -1,8 +1,8 @@
 # Autark
 
-> Most freelancers send a cover letter. Autark ships a demo.
+> Drop in a product. Autark keeps finding customers.
 
-Landing page for Autark — an AI tool that applies to Upwork jobs, writes proposals, builds a working prototype, and deploys it, automatically.
+Landing page for Autark — an autonomous customer-acquisition system. You bring a product brief and landing page. Autark assumes the product already exists, derives the ICP, runs recursive GTM loops, and keeps iterating on outreach until it finds signal.
 
 ## Stack
 
