@@ -50,6 +50,8 @@
 
     /* ---- NAV ---- */
     nav {
+      position: relative;
+      z-index: 1;
       max-width: 720px;
       margin: 0 auto;
       padding: 44px 28px 0;
@@ -79,7 +81,35 @@
     .nav-links a:hover { color: var(--accent); }
 
     /* ---- HERO ---- */
+    .hero-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('bg.png') center center / cover no-repeat;
+      opacity: 0.12;
+      filter: grayscale(0.3);
+      pointer-events: none;
+    }
+
+    .hero-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(3, 17, 17, 0.5) 0%,
+        rgba(4, 19, 18, 0.3) 40%,
+        rgba(4, 19, 18, 0.85) 100%
+      );
+      mix-blend-mode: multiply;
+    }
+
     .hero {
+      position: relative;
+      z-index: 1;
       max-width: 720px;
       margin: 0 auto;
       padding: 140px 28px 120px;
@@ -292,23 +322,25 @@
 </head>
 <body>
 
-  <nav>
-    <a href="#top" class="brand">Autark</a>
-    <div class="nav-links">
-      <a href="#contact" class="mono">Access</a>
-      <a href="https://github.com/kiluazen" target="_blank" rel="noopener" class="mono">GitHub</a>
-    </div>
-  </nav>
-
-  <section class="hero" id="top">
-    <div class="eyebrow mono">For products that already exist</div>
-    <h1>Autark finds <em>customers</em><br />for your product.</h1>
-    <p class="sub">
-      You bring the product and landing page.
-      <strong>Autark does not build the product.</strong> It figures out who should buy,
-      where to find them, what to say, and keeps iterating until the market responds.
-    </p>
-  </section>
+  <div class="hero-wrap">
+    <div class="hero-bg"></div>
+    <nav>
+      <a href="#top" class="brand">Autark</a>
+      <div class="nav-links">
+        <a href="#contact" class="mono">Access</a>
+        <a href="https://github.com/kiluazen" target="_blank" rel="noopener" class="mono">GitHub</a>
+      </div>
+    </nav>
+    <section class="hero" id="top">
+      <div class="eyebrow mono">For products that already exist</div>
+      <h1>Autark finds <em>customers</em><br />for your product.</h1>
+      <p class="sub">
+        You bring the product and landing page.
+        <strong>Autark does not build the product.</strong> It figures out who should buy,
+        where to find them, what to say, and keeps iterating until the market responds.
+      </p>
+    </section>
+  </div>
 
   <section class="terminal-section">
     <div class="terminal">
