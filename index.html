@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,20 +20,11 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #041312;
-      --bg-rgb: 4, 19, 18;
-      --panel: rgba(8, 29, 27, 0.82);
-      --panel-strong: rgba(11, 33, 31, 0.94);
-      --line: rgba(239, 225, 199, 0.16);
-      --line-strong: rgba(239, 225, 199, 0.28);
       --text: #f1e1c3;
-      --muted: #bba98e;
+      --muted: rgba(241, 225, 195, 0.50);
       --accent: #deb36b;
-      --accent-soft: rgba(222, 179, 107, 0.14);
-      --accent-glow: rgba(222, 179, 107, 0.24);
       --moss: #7f9b70;
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
-      --hero-width: 760px;
+      --line: rgba(239, 225, 199, 0.10);
     }
 
     html { scroll-behavior: smooth; }
@@ -42,196 +33,72 @@
       min-height: 100vh;
       font-family: "Instrument Sans", sans-serif;
       color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(222, 179, 107, 0.08), transparent 34%),
-        radial-gradient(circle at 78% 0%, rgba(127, 155, 112, 0.12), transparent 28%),
-        radial-gradient(circle at 60% 56%, rgba(13, 47, 44, 0.68), transparent 42%),
-        linear-gradient(180deg, #031111 0%, #061615 100%);
+      background: linear-gradient(180deg, #031111 0%, #061615 50%, #041312 100%);
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
 
-    body::before {
-      background:
-        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-        repeating-linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.012) 0,
-          rgba(255, 255, 255, 0.012) 2px,
-          transparent 2px,
-          transparent 4px
-        );
-      background-size: 120px 120px, 120px 120px, 100% 4px;
-      mix-blend-mode: soft-light;
-      opacity: 0.34;
-    }
-
-    body::after {
-      background:
-        radial-gradient(circle at center, transparent 48%, rgba(0, 0, 0, 0.45) 100%);
-      opacity: 0.85;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    .shell {
-      position: relative;
-      z-index: 1;
-      width: min(1500px, calc(100% - 32px));
-      margin: 24px auto;
-      border: 1px solid var(--line-strong);
-      background: linear-gradient(180deg, rgba(4, 19, 18, 0.62), rgba(4, 19, 18, 0.84));
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-    }
-
-    .grid-bar {
-      display: grid;
-      grid-template-columns: minmax(210px, 1.15fr) repeat(5, minmax(120px, 1fr));
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand-cell,
-    .nav-cell {
-      min-height: 82px;
-      border-right: 1px solid var(--line);
-      padding: 18px 20px;
-    }
-
-    .grid-bar > :last-child {
-      border-right: 0;
-    }
-
-    .brand-mark {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2.15rem;
-      line-height: 0.9;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      color: var(--text);
-      text-shadow: 0 0 18px rgba(222, 179, 107, 0.1);
-    }
-
-    .nav-cell {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      position: relative;
-    }
-
-    .nav-cell::after {
-      content: "";
-      position: absolute;
-      inset: 6px;
-      background: linear-gradient(135deg, rgba(222, 179, 107, 0.08), transparent 58%);
-      opacity: 0;
-      transition: opacity 0.18s ease;
-      pointer-events: none;
-    }
-
-    .nav-cell:hover::after {
-      opacity: 1;
-    }
-
-    .nav-label,
-    .eyebrow,
-    .mini-label,
-    .terminal-top span,
-    .footer-copy,
-    .field-label,
-    .theme-copy {
+    .mono {
       font-family: "IBM Plex Mono", monospace;
-      font-size: 0.82rem;
-      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
     }
 
-    .nav-label,
-    .theme-copy {
-      color: rgba(241, 225, 195, 0.86);
+    /* ---- NAV ---- */
+    nav {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 44px 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .nav-cell a:hover {
-      color: var(--accent);
+    .brand {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
-    .theme-toggle {
-      width: 44px;
-      height: 24px;
-      border: 1px solid rgba(241, 225, 195, 0.24);
-      background: rgba(241, 225, 195, 0.08);
-      border-radius: 999px;
-      position: relative;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: background 0.2s ease, border-color 0.2s ease;
+    .nav-links {
+      display: flex;
+      gap: 28px;
     }
 
-    .theme-toggle::before {
-      content: "";
-      position: absolute;
-      top: 3px;
-      left: 4px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--text);
-      box-shadow: 0 0 16px rgba(241, 225, 195, 0.25);
-      transition: transform 0.2s ease;
+    .nav-links a {
+      color: var(--muted);
+      transition: color 0.15s;
     }
 
-    html[data-theme="light"] .theme-toggle::before {
-      transform: translateX(19px);
-    }
+    .nav-links a:hover { color: var(--accent); }
 
-    .theme-toggle:hover {
-      border-color: rgba(241, 225, 195, 0.38);
-    }
-
+    /* ---- HERO ---- */
     .hero {
-      padding: clamp(62px, 9vw, 118px) 24px clamp(54px, 7vw, 96px);
-      border-bottom: 1px solid var(--line);
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 140px 28px 120px;
       text-align: center;
     }
 
-    .hero-inner {
-      width: min(var(--hero-width), 100%);
-      margin: 0 auto;
-    }
-
-    .eyebrow {
-      color: rgba(241, 225, 195, 0.58);
-      margin-bottom: 22px;
+    .hero .eyebrow {
+      color: var(--muted);
+      margin-bottom: 28px;
     }
 
     .hero h1 {
       font-family: "Cormorant Garamond", serif;
-      font-size: clamp(3.2rem, 6.8vw, 5.8rem);
+      font-size: clamp(2.8rem, 7vw, 5rem);
       line-height: 0.92;
       font-weight: 700;
       letter-spacing: 0.01em;
       text-transform: uppercase;
-      color: var(--text);
       text-wrap: balance;
-      text-shadow: 0 0 28px rgba(222, 179, 107, 0.08);
     }
 
     .hero h1 em {
@@ -239,148 +106,36 @@
       color: var(--accent);
     }
 
-    .hero p {
-      max-width: 720px;
-      margin: 24px auto 0;
-      font-size: 1.08rem;
-      line-height: 1.78;
-      color: rgba(241, 225, 195, 0.72);
-      text-transform: none;
+    .hero .sub {
+      max-width: 520px;
+      margin: 36px auto 0;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: rgba(241, 225, 195, 0.6);
     }
 
-    .hero p strong {
+    .hero .sub strong {
       color: var(--text);
       font-weight: 600;
     }
 
-    .signal-stack {
-      width: min(760px, 100%);
-      margin: 38px auto 0;
-      display: grid;
-      gap: 12px;
-    }
-
-    .command-card {
-      padding: 16px 18px;
-      border: 1px solid var(--line);
-      background: rgba(5, 24, 23, 0.74);
-      text-align: left;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .command-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(222, 179, 107, 0.08), transparent);
-      transform: translateX(-100%);
-      animation: shimmer 7s linear infinite;
-      pointer-events: none;
-    }
-
-    .command-card code {
-      display: block;
-      margin-top: 8px;
-      padding: 10px 12px;
-      border: 1px solid rgba(241, 225, 195, 0.12);
-      background: rgba(0, 0, 0, 0.16);
-      color: var(--text);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.9rem;
-      letter-spacing: 0.02em;
-      text-transform: none;
-      line-height: 1.6;
-      overflow-wrap: anywhere;
-    }
-
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 22px;
-      border: 1px solid var(--line-strong);
-      background: rgba(241, 225, 195, 0.06);
-      color: var(--text);
-      transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
-    }
-
-    .button:hover {
-      transform: translateY(-1px);
-      border-color: rgba(222, 179, 107, 0.38);
-      background: rgba(222, 179, 107, 0.1);
-    }
-
-    .button.primary {
-      background: rgba(222, 179, 107, 0.14);
-      color: var(--accent);
-    }
-
-    .section-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .section-grid > * {
-      min-width: 0;
-      border-right: 1px solid var(--line);
-    }
-
-    .section-grid > :last-child {
-      border-right: 0;
-    }
-
-    .cell {
-      padding: 26px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cell-title {
-      margin-bottom: 14px;
-    }
-
-    .headline {
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2rem, 4vw, 3.1rem);
-      line-height: 0.98;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      color: var(--text);
-    }
-
-    .cell p,
-    .feature-copy,
-    .compare-list li,
-    .cta-panel p {
-      text-transform: none;
-      line-height: 1.75;
-      color: rgba(241, 225, 195, 0.74);
-      font-size: 1rem;
+    /* ---- TERMINAL ---- */
+    .terminal-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 28px 120px;
     }
 
     .terminal {
       border: 1px solid var(--line);
-      background: rgba(3, 15, 14, 0.72);
-      min-height: 100%;
+      background: rgba(3, 15, 14, 0.5);
     }
 
     .terminal-top {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 14px;
+      padding: 14px 18px;
       border-bottom: 1px solid var(--line);
     }
 
@@ -394,713 +149,230 @@
       height: 7px;
       border-radius: 50%;
       background: var(--accent);
-      opacity: 0.86;
     }
+
+    .terminal-dots span:nth-child(2) { opacity: 0.5; }
+    .terminal-dots span:nth-child(3) { opacity: 0.25; }
 
     .terminal-body {
-      padding: 18px 18px 22px;
+      padding: 24px;
       font-family: "IBM Plex Mono", monospace;
-      font-size: 0.92rem;
+      font-size: 0.86rem;
+      line-height: 1.85;
+      color: rgba(241, 225, 195, 0.72);
+    }
+
+    .terminal-line { margin-bottom: 6px; }
+    .terminal-line:last-child { margin-bottom: 0; }
+    .terminal-line .prompt { color: var(--accent); margin-right: 10px; }
+    .terminal-line .good { color: #bfd3a4; }
+    .terminal-line .dim { color: rgba(241, 225, 195, 0.35); }
+
+    /* ---- CTA ---- */
+    .cta {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 28px 140px;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      line-height: 0.94;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+
+    .cta .desc {
+      color: rgba(241, 225, 195, 0.5);
+      font-size: 0.95rem;
       line-height: 1.7;
-      text-transform: none;
-      color: rgba(241, 225, 195, 0.82);
-      overflow-wrap: anywhere;
-    }
-
-    .terminal-line {
-      margin-bottom: 12px;
-    }
-
-    .terminal-line:last-child {
-      margin-bottom: 0;
-    }
-
-    .terminal-line .prompt {
-      color: var(--accent);
-      margin-right: 10px;
-    }
-
-    .terminal-line .good {
-      color: #bfd3a4;
-    }
-
-    .terminal-line .muted {
-      color: rgba(241, 225, 195, 0.48);
-    }
-
-    .loop-panel {
-      min-height: 100%;
-      background:
-        radial-gradient(circle at 22% 22%, rgba(222, 179, 107, 0.12), transparent 28%),
-        linear-gradient(145deg, rgba(5, 22, 21, 0.92), rgba(10, 32, 30, 0.84));
-    }
-
-    .loop-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-      color: rgba(241, 225, 195, 0.62);
-    }
-
-    .loop-kicker::before {
-      content: "";
-      width: 34px;
-      height: 1px;
-      background: var(--accent);
-      opacity: 0.6;
-    }
-
-    .loop-points {
-      margin-top: 24px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .loop-point {
-      padding: 14px 16px;
-      border: 1px solid var(--line);
-      background: rgba(241, 225, 195, 0.035);
-    }
-
-    .loop-point strong {
-      display: block;
-      margin-bottom: 5px;
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .features {
-      border-bottom: 1px solid var(--line);
-    }
-
-    .features-header {
-      padding: 24px 26px 18px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .feature {
-      padding: 22px 24px;
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      position: relative;
-    }
-
-    .feature:nth-child(3n) {
-      border-right: 0;
-    }
-
-    .feature strong {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--text);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-size: 0.98rem;
-    }
-
-    .feature::after {
-      content: "";
-      position: absolute;
-      inset: 8px;
-      background: linear-gradient(180deg, rgba(222, 179, 107, 0.08), transparent 40%);
-      opacity: 0;
-      transition: opacity 0.18s ease;
-      pointer-events: none;
-    }
-
-    .feature:hover::after {
-      opacity: 1;
-    }
-
-    .compare-wrap {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .compare-card {
-      padding: 28px 26px 30px;
-      border-right: 1px solid var(--line);
-    }
-
-    .compare-wrap > :last-child {
-      border-right: 0;
-    }
-
-    .compare-card h3 {
-      margin: 10px 0 18px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2.05rem;
-      line-height: 0.95;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .compare-list {
-      list-style: none;
-      display: grid;
-      gap: 12px;
-    }
-
-    .compare-list li {
-      padding-left: 22px;
-      position: relative;
-    }
-
-    .compare-list li::before {
-      position: absolute;
-      left: 0;
-      top: 1px;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.88rem;
-      letter-spacing: 0.12em;
-    }
-
-    .compare-card.bad li::before {
-      content: "x";
-      color: #c9836d;
-    }
-
-    .compare-card.good li::before {
-      content: ">";
-      color: var(--accent);
-    }
-
-    .cta-panel {
-      padding: 34px 26px 36px;
-      border-bottom: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
-      gap: 24px;
-      align-items: start;
-    }
-
-    .cta-panel h2 {
-      margin: 12px 0 14px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.2rem, 4.5vw, 3.7rem);
-      line-height: 0.92;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
+      max-width: 480px;
+      margin: 0 auto 44px;
     }
 
     .cta-form {
-      border: 1px solid var(--line);
-      background: rgba(4, 18, 17, 0.76);
-      padding: 18px;
+      max-width: 380px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .field {
-      margin-bottom: 14px;
-    }
-
-    .field:last-of-type {
-      margin-bottom: 18px;
-    }
-
-    .field-label {
+    .field label {
       display: block;
       margin-bottom: 8px;
-      color: rgba(241, 225, 195, 0.56);
+      color: var(--muted);
+      text-align: left;
     }
 
     .field input {
       width: 100%;
-      min-height: 46px;
-      padding: 0 14px;
-      border: 1px solid var(--line);
+      height: 48px;
+      padding: 0 16px;
+      border: 1px solid rgba(239, 225, 199, 0.14);
       background: rgba(241, 225, 195, 0.03);
       color: var(--text);
       outline: none;
+      transition: border-color 0.15s;
     }
 
-    .field input::placeholder {
-      color: rgba(241, 225, 195, 0.32);
-    }
+    .field input::placeholder { color: rgba(241, 225, 195, 0.22); }
+    .field input:focus { border-color: rgba(222, 179, 107, 0.38); }
 
-    .field input:focus {
-      border-color: rgba(222, 179, 107, 0.42);
-      box-shadow: 0 0 0 3px rgba(222, 179, 107, 0.08);
-    }
-
-    .cta-note {
-      margin-top: 12px;
-      color: rgba(241, 225, 195, 0.48);
-      font-size: 0.92rem;
-    }
-
-    .footer {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .footer > * {
-      min-height: 72px;
-      padding: 18px 20px;
-      border-right: 1px solid var(--line);
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .footer > :last-child {
-      border-right: 0;
-    }
-
-    .footer a:hover {
-      color: var(--accent);
-    }
-
-    .status-badge {
+    .btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      color: rgba(241, 225, 195, 0.7);
+      justify-content: center;
+      height: 48px;
+      padding: 0 28px;
+      border: 1px solid rgba(222, 179, 107, 0.3);
+      background: rgba(222, 179, 107, 0.12);
+      color: var(--accent);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.15s;
     }
 
-    .status-badge::before {
-      content: "";
-      width: 8px;
-      height: 8px;
+    .btn:hover { background: rgba(222, 179, 107, 0.2); }
+
+    .cta-form .note {
+      color: rgba(241, 225, 195, 0.3);
+      font-size: 0.82rem;
+    }
+
+    .cta-form .note a { color: rgba(241, 225, 195, 0.45); }
+
+    /* ---- FOOTER ---- */
+    footer {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 28px 44px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer span, footer a {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    footer a:hover { color: var(--accent); }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--moss);
-      box-shadow: 0 0 12px rgba(127, 155, 112, 0.5);
+      box-shadow: 0 0 10px rgba(127, 155, 112, 0.45);
+      margin-right: 8px;
     }
 
-    .mobile-links {
-      display: none;
-      border-bottom: 1px solid var(--line);
-      padding: 14px 18px;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .mobile-links a {
-      padding: 8px 10px;
-      border: 1px solid var(--line);
-      background: rgba(241, 225, 195, 0.04);
-    }
-
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    @media (max-width: 1120px) {
-      .grid-bar {
-        display: none;
-      }
-
-      .mobile-links {
-        display: flex;
-      }
-
-      .feature-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .feature:nth-child(3n) {
-        border-right: 1px solid var(--line);
-      }
-
-      .feature:nth-child(2n) {
-        border-right: 0;
-      }
-
-      .cta-panel,
-      .section-grid,
-      .compare-wrap {
-        grid-template-columns: 1fr;
-      }
-
-      .section-grid > *,
-      .compare-wrap > *,
-      .footer > * {
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .footer {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .footer > *:nth-last-child(-n + 2) {
-        border-bottom: 0;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .shell {
-        width: calc(100% - 18px);
-        margin: 10px auto;
-      }
-
-      .hero,
-      .cell,
-      .compare-card,
-      .features-header,
-      .feature,
-      .cta-panel,
-      .footer > * {
-        padding-left: 18px;
-        padding-right: 18px;
-      }
-
-      .hero h1 {
-        max-width: 280px;
-        margin-left: auto;
-        margin-right: auto;
-        font-size: clamp(1.45rem, 8.8vw, 2.25rem);
-        line-height: 0.96;
-        letter-spacing: 0;
-      }
-
-      .hero p {
-        font-size: 0.88rem;
-        line-height: 1.68;
-      }
-
-      .hero-inner {
-        width: min(280px, 100%);
-      }
-
-      .signal-stack {
-        margin-top: 28px;
-      }
-
-      .command-card code {
-        font-size: 0.74rem;
-        line-height: 1.55;
-      }
-
-      .terminal-body {
-        font-size: 0.8rem;
-        line-height: 1.58;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      .feature-grid,
-      .footer {
-        grid-template-columns: 1fr;
-      }
-
-      .feature {
-        border-right: 0;
-      }
-
-      .footer > * {
-        border-bottom: 1px solid var(--line);
-      }
-
-      .footer > :last-child {
-        border-bottom: 0;
-      }
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 600px) {
+      nav { padding: 28px 20px 0; }
+      .hero { padding: 100px 20px 80px; }
+      .terminal-section, .cta { padding-left: 20px; padding-right: 20px; }
+      footer { padding: 24px 20px 32px; flex-direction: column; align-items: flex-start; }
+      .hero h1 { font-size: clamp(2.2rem, 10vw, 3rem); }
     }
   </style>
 </head>
 <body>
-  <main class="shell">
-    <header class="grid-bar">
-      <div class="brand-cell">
-        <a href="#top" class="brand-mark">Autark<br />Growth</a>
-      </div>
-      <div class="nav-cell">
-        <a href="#process" class="nav-label">Process</a>
-      </div>
-      <div class="nav-cell">
-        <a href="#loop" class="nav-label">Loop</a>
-      </div>
-      <div class="nav-cell">
-        <a href="#difference" class="nav-label">What It Does</a>
-      </div>
-      <div class="nav-cell">
-        <a href="#contact" class="nav-label">Contact</a>
-      </div>
-      <div class="nav-cell">
-        <span class="theme-copy">Theme</span>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
-      </div>
-    </header>
 
-    <div class="mobile-links">
-      <a class="nav-label" href="#process">Process</a>
-      <a class="nav-label" href="#loop">Loop</a>
-      <a class="nav-label" href="#difference">What It Does</a>
-      <a class="nav-label" href="#contact">Contact</a>
+  <nav>
+    <a href="#top" class="brand">Autark</a>
+    <div class="nav-links">
+      <a href="#contact" class="mono">Access</a>
+      <a href="https://github.com/kiluazen" target="_blank" rel="noopener" class="mono">GitHub</a>
     </div>
+  </nav>
 
-    <section class="hero" id="top">
-      <div class="hero-inner">
-        <div class="eyebrow">For products that already exist</div>
-        <h1>Autark finds <em>customers</em><br />for your product.</h1>
-        <p>
-          You bring the product brief and landing page.
-          <strong>Autark does not build the product.</strong> It figures out who should buy,
-          where to find them, what to say, runs the outreach, learns from replies, and keeps iterating.
-        </p>
+  <section class="hero" id="top">
+    <div class="eyebrow mono">For products that already exist</div>
+    <h1>Autark finds <em>customers</em><br />for your product.</h1>
+    <p class="sub">
+      You bring the product and landing page.
+      <strong>Autark does not build the product.</strong> It figures out who should buy,
+      where to find them, what to say, and keeps iterating until the market responds.
+    </p>
+  </section>
 
-        <div class="signal-stack">
-          <div class="command-card">
-            <div class="mini-label">1. You give it</div>
-            <code>Product brief + landing page + buyer outcome</code>
-          </div>
-          <div class="command-card">
-            <div class="mini-label">2. Autark does</div>
-            <code>Find ICP -> pick channels -> send outreach -> learn -> repeat</code>
-          </div>
-          <div class="command-card">
-            <div class="mini-label">3. You get back</div>
-            <code>Conversations, signal, and a sharper path to real demand</code>
-          </div>
+  <section class="terminal-section">
+    <div class="terminal">
+      <div class="terminal-top">
+        <div class="terminal-dots">
+          <span></span><span></span><span></span>
         </div>
+        <span class="mono" style="color: var(--muted); font-size: 0.72rem;">Autark Runtime</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line"><span class="prompt">&gt;</span> read product brief + landing page</div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> infer ICP: <span class="good">who needs this most, right now?</span></div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> find channels: inboxes / communities / directories</div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> write channel-specific outreach</div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> track replies, dead ends, objections</div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> tighten ICP + message from signal</div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> loop</div>
+        <div class="terminal-line dim">keep finding people who actually want the product.</div>
+      </div>
+    </div>
+  </section>
 
-        <div class="hero-actions">
-          <a class="button primary" href="#contact">Get access</a>
-          <a class="button" href="#process">See how it works</a>
-        </div>
-      </div>
-    </section>
+  <section class="cta" id="contact">
+    <h2>Send the product.<br />Autark goes after the market.</h2>
+    <p class="desc">
+      For founders with a real product and no repeatable way to get customers yet.
+    </p>
 
-    <section class="section-grid" id="loop">
-      <div class="cell">
-        <div class="cell-title">
-          <div class="mini-label">What it does all day</div>
-        </div>
-        <div class="terminal">
-          <div class="terminal-top">
-            <div class="terminal-dots">
-              <span></span>
-              <span style="opacity: 0.54;"></span>
-              <span style="opacity: 0.28;"></span>
-            </div>
-            <span>Autark Runtime</span>
-          </div>
-          <div class="terminal-body">
-            <div class="terminal-line"><span class="prompt">&gt;</span> read product brief + landing page</div>
-            <div class="terminal-line"><span class="prompt">&gt;</span> infer ICP: <span class="good">who needs this most, right now?</span></div>
-            <div class="terminal-line"><span class="prompt">&gt;</span> find channels: inboxes / communities / directories / social surfaces</div>
-            <div class="terminal-line"><span class="prompt">&gt;</span> write channel-specific outreach</div>
-            <div class="terminal-line"><span class="prompt">&gt;</span> track replies, dead ends, and objections</div>
-            <div class="terminal-line"><span class="prompt">&gt;</span> tighten ICP + message from signal</div>
-            <div class="terminal-line"><span class="prompt">&gt;</span> run the loop again</div>
-            <div class="terminal-line muted">The goal is simple: keep finding more people who actually want the product.</div>
-          </div>
-        </div>
+    <form class="cta-form" id="access-form">
+      <div class="field">
+        <label class="mono" for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" />
       </div>
+      <div class="field">
+        <label class="mono" for="product-url">Product URL</label>
+        <input id="product-url" name="product-url" type="url" placeholder="https://yourproduct.com" />
+      </div>
+      <button class="btn" type="submit" style="width: 100%;">Get access</button>
+      <p class="note">Sends straight to <a href="mailto:kushalsm@agentmail.to">kushalsm@agentmail.to</a></p>
+    </form>
+  </section>
 
-      <div class="cell loop-panel">
-        <div class="loop-kicker mini-label">What actually happens</div>
-        <div class="headline">An agent for customer acquisition.</div>
-        <p style="margin-top: 16px;">
-          Most tools help you build the product. Autark starts after that.
-          It turns a live product into a live customer-finding loop.
-        </p>
-
-        <div class="loop-points">
-          <div class="loop-point">
-            <strong>Starts with what you already have</strong>
-            A product brief, a landing page, and a clear buyer outcome are enough to begin.
-          </div>
-          <div class="loop-point">
-            <strong>Finds customers instead of making plans about customers</strong>
-            It picks an ICP, tests channels, sends messages, and learns from what comes back.
-          </div>
-          <div class="loop-point">
-            <strong>Keeps iterating until the market starts talking back</strong>
-            Better ICP, better message, better surfaces. The loop tightens every pass.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="features" id="process">
-      <div class="features-header">
-        <div class="mini-label">How it works</div>
-      </div>
-      <div class="feature-grid">
-        <article class="feature">
-          <strong>1. Understand the product</strong>
-          <div class="feature-copy">Autark reads the product brief, landing page, and buyer outcome so it knows what is being sold and why anyone would care.</div>
-        </article>
-        <article class="feature">
-          <strong>2. Pick the best ICP</strong>
-          <div class="feature-copy">It starts with the smallest believable group of people who seem most likely to need the product now.</div>
-        </article>
-        <article class="feature">
-          <strong>3. Find where they are</strong>
-          <div class="feature-copy">Communities, inboxes, bylines, directories, niche social surfaces, and anywhere else the target buyer actually shows up.</div>
-        </article>
-        <article class="feature">
-          <strong>4. Send the right outreach</strong>
-          <div class="feature-copy">Email is not Reddit and Reddit is not LinkedIn. The message changes with the channel instead of getting sprayed everywhere.</div>
-        </article>
-        <article class="feature">
-          <strong>5. Learn from the response</strong>
-          <div class="feature-copy">Replies, silence, objections, and unexpected wins all become signal for the next pass instead of dead notes in a doc.</div>
-        </article>
-        <article class="feature">
-          <strong>6. Repeat until it clicks</strong>
-          <div class="feature-copy">The point is not one campaign. The point is a recursive system for finding customers until a real demand pattern appears.</div>
-        </article>
-      </div>
-    </section>
-
-    <section class="compare-wrap" id="difference">
-      <div class="compare-card bad">
-        <div class="mini-label">What Autark is not</div>
-        <h3>Not a product builder.</h3>
-        <ul class="compare-list">
-          <li>Not a “describe your idea and we will generate an MVP” tool.</li>
-          <li>Not a random CSV of 400 unqualified leads.</li>
-          <li>Not one cold-email blast pretending to be GTM.</li>
-          <li>Not a nicer dashboard for avoiding real customer contact.</li>
-        </ul>
-      </div>
-
-      <div class="compare-card good">
-        <div class="mini-label">What it actually does</div>
-        <h3>Run customer acquisition.</h3>
-        <ul class="compare-list">
-          <li>Take an existing product and form a real demand thesis.</li>
-          <li>Pick the first ICP worth chasing.</li>
-          <li>Find real people and real channels, then do the outreach.</li>
-          <li>Refine the thesis until the market starts responding.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="cta-panel" id="contact">
-      <div>
-        <div class="mini-label">Early access</div>
-        <h2>Send the product.<br />Autark sends itself after the market.</h2>
-        <p>
-          If you already have a real product and want the customer-finding loop to run harder than a human ops sprint, request access. We care about products that are built, legible, and ready to meet the market.
-        </p>
-        <p class="cta-note">Best fit right now: founders with a real product, a live landing page, and no repeatable way to get customers yet.</p>
-      </div>
-
-      <form class="cta-form" id="access-form">
-        <div class="field">
-          <label class="field-label" for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" />
-        </div>
-        <div class="field">
-          <label class="field-label" for="product-url">Product URL</label>
-          <input id="product-url" name="product-url" type="url" placeholder="https://yourproduct.com" />
-        </div>
-        <button class="button primary" type="submit" style="width: 100%;">Get access</button>
-        <p class="cta-note">No CRM theater. This sends a request straight to <a href="mailto:kushalsm@agentmail.to">kushalsm@agentmail.to</a>.</p>
-      </form>
-    </section>
-
-    <footer class="footer">
-      <div>
-        <span class="footer-copy">Autark</span>
-        <span class="status-badge footer-copy">Active thesis: customer acquisition</span>
-      </div>
-      <div>
-        <a class="footer-copy" href="https://github.com/kiluazen" target="_blank" rel="noopener">GitHub</a>
-      </div>
-      <div>
-        <a class="footer-copy" href="mailto:kushalsm@agentmail.to">kushalsm@agentmail.to</a>
-      </div>
-      <div>
-        <span class="footer-copy">Built by Kushal · 2026</span>
-      </div>
-    </footer>
-  </main>
+  <footer>
+    <span><span class="status-dot"></span>Autark</span>
+    <div class="footer-links">
+      <a href="https://github.com/kiluazen" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:kushalsm@agentmail.to">Email</a>
+      <span>Kushal · 2026</span>
+    </div>
+  </footer>
 
   <script>
-    const root = document.documentElement;
-    const storedTheme = window.localStorage.getItem("autark-theme");
-
-    if (storedTheme === "light") {
-      root.setAttribute("data-theme", "light");
-      applyLightTheme();
-    }
-
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-      const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
-      root.setAttribute("data-theme", next);
-      window.localStorage.setItem("autark-theme", next);
-      if (next === "light") {
-        applyLightTheme();
-      } else {
-        applyDarkTheme();
-      }
-    });
-
-    function applyLightTheme() {
-      root.style.setProperty("--bg", "#efe6d7");
-      root.style.setProperty("--bg-rgb", "239, 230, 215");
-      root.style.setProperty("--panel", "rgba(255, 250, 242, 0.86)");
-      root.style.setProperty("--panel-strong", "rgba(255, 249, 240, 0.96)");
-      root.style.setProperty("--line", "rgba(44, 32, 23, 0.14)");
-      root.style.setProperty("--line-strong", "rgba(44, 32, 23, 0.24)");
-      root.style.setProperty("--text", "#251c15");
-      root.style.setProperty("--muted", "#6c5d4f");
-      root.style.setProperty("--accent", "#9f6223");
-      root.style.setProperty("--accent-soft", "rgba(159, 98, 35, 0.12)");
-      root.style.setProperty("--accent-glow", "rgba(159, 98, 35, 0.16)");
-      root.style.setProperty("--moss", "#55704f");
-      document.body.style.background =
-        "radial-gradient(circle at top left, rgba(159, 98, 35, 0.1), transparent 34%), radial-gradient(circle at 78% 0%, rgba(85, 112, 79, 0.14), transparent 28%), radial-gradient(circle at 60% 56%, rgba(235, 224, 207, 0.84), transparent 42%), linear-gradient(180deg, #f2eadc 0%, #e8ddcd 100%)";
-    }
-
-    function applyDarkTheme() {
-      root.style.setProperty("--bg", "#041312");
-      root.style.setProperty("--bg-rgb", "4, 19, 18");
-      root.style.setProperty("--panel", "rgba(8, 29, 27, 0.82)");
-      root.style.setProperty("--panel-strong", "rgba(11, 33, 31, 0.94)");
-      root.style.setProperty("--line", "rgba(239, 225, 199, 0.16)");
-      root.style.setProperty("--line-strong", "rgba(239, 225, 199, 0.28)");
-      root.style.setProperty("--text", "#f1e1c3");
-      root.style.setProperty("--muted", "#bba98e");
-      root.style.setProperty("--accent", "#deb36b");
-      root.style.setProperty("--accent-soft", "rgba(222, 179, 107, 0.14)");
-      root.style.setProperty("--accent-glow", "rgba(222, 179, 107, 0.24)");
-      root.style.setProperty("--moss", "#7f9b70");
-      document.body.style.background =
-        "radial-gradient(circle at top left, rgba(222, 179, 107, 0.08), transparent 34%), radial-gradient(circle at 78% 0%, rgba(127, 155, 112, 0.12), transparent 28%), radial-gradient(circle at 60% 56%, rgba(13, 47, 44, 0.68), transparent 42%), linear-gradient(180deg, #031111 0%, #061615 100%)";
-    }
-
     document.getElementById("access-form").addEventListener("submit", (event) => {
       event.preventDefault();
-
       const email = document.getElementById("email").value.trim();
       const productUrl = document.getElementById("product-url").value.trim();
-
       if (!email || !email.includes("@")) {
         document.getElementById("email").focus();
         return;
       }
-
       const subject = encodeURIComponent("Autark early access request");
       const body = encodeURIComponent(
-        [
-          "Email: " + email,
-          "Product URL: " + (productUrl || "not included"),
-          "",
-          "Tell me more about how Autark works for my product."
-        ].join("\n")
+        ["Email: " + email, "Product URL: " + (productUrl || "not included"), "", "Tell me more about how Autark works for my product."].join("\n")
       );
-
       window.location.href = "mailto:kushalsm@agentmail.to?subject=" + subject + "&body=" + body;
     });
   </script>
