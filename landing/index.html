@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autark — Find customers for your product.</title>
+  <meta
+    name="description"
+    content="Autark helps existing products find customers. Give it a product brief and landing page; it finds the ICP, tests channels, sends outreach, learns from replies, and keeps iterating."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text: #f1e1c3;
+      --muted: rgba(241, 225, 195, 0.50);
+      --accent: #deb36b;
+      --moss: #7f9b70;
+      --line: rgba(239, 225, 199, 0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      font-family: "Instrument Sans", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #031111 0%, #061615 50%, #041312 100%);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    .page-bg {
+      position: fixed;
+      inset: 0;
+      background: url('bg.png?v=4') right center / cover no-repeat;
+      opacity: 0.12;
+      filter: grayscale(1) contrast(1.35) brightness(0.95);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 90% at 80% 50%, transparent 0%, rgba(4, 19, 18, 0.55) 85%);
+    }
+
+    body > *:not(.page-bg) { position: relative; z-index: 1; }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    .mono {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 44px 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ---- HERO ---- */
+    .hero-wrap {
+      position: relative;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 140px 28px 120px;
+      text-align: center;
+    }
+
+    .hero .eyebrow {
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.6rem, 6.5vw, 4.6rem);
+      line-height: 1.02;
+      font-weight: 500;
+      letter-spacing: 0.005em;
+      text-wrap: balance;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero .sub {
+      max-width: 520px;
+      margin: 36px auto 0;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(241, 225, 195, 0.6);
+    }
+
+    .hero .sub + .sub { margin-top: 14px; }
+
+    .hero .sub strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ---- TERMINAL ---- */
+    .terminal-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 28px 120px;
+    }
+
+    .terminal {
+      border: 1px solid var(--line);
+      background: rgba(3, 15, 14, 0.5);
+    }
+
+    .terminal-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .terminal-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .terminal-dots span:nth-child(2) { opacity: 0.5; }
+    .terminal-dots span:nth-child(3) { opacity: 0.25; }
+
+    .terminal-body {
+      padding: 24px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.86rem;
+      line-height: 1.85;
+      color: rgba(241, 225, 195, 0.72);
+    }
+
+    .terminal-line { margin-bottom: 6px; }
+    .terminal-line:last-child { margin-bottom: 0; }
+    .terminal-line .prompt { color: var(--accent); margin-right: 10px; }
+    .terminal-line .good { color: #bfd3a4; }
+    .terminal-line .dim { color: rgba(241, 225, 195, 0.35); }
+
+    /* ---- CTA ---- */
+    .cta {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 28px 140px;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.7rem, 4.2vw, 2.8rem);
+      line-height: 1.08;
+      font-weight: 500;
+      letter-spacing: 0.005em;
+      margin-bottom: 16px;
+    }
+
+    .cta .desc {
+      color: rgba(241, 225, 195, 0.5);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 44px;
+    }
+
+    .cta-form {
+      max-width: 380px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .field input {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      border: 1px solid rgba(239, 225, 199, 0.14);
+      background: rgba(241, 225, 195, 0.03);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .field input::placeholder { color: rgba(241, 225, 195, 0.22); }
+    .field input:focus { border-color: rgba(222, 179, 107, 0.38); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      padding: 0 28px;
+      border: 1px solid rgba(222, 179, 107, 0.3);
+      background: rgba(222, 179, 107, 0.12);
+      color: var(--accent);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn:hover { background: rgba(222, 179, 107, 0.2); }
+
+    .cta-form .note {
+      color: rgba(241, 225, 195, 0.3);
+      font-size: 0.82rem;
+    }
+
+    .cta-form .note a { color: rgba(241, 225, 195, 0.45); }
+
+    /* ---- FOOTER ---- */
+    footer {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 28px 44px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer span, footer a {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .twitter-link {
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    .twitter-link:hover { color: var(--accent); }
+
+    .status-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--moss);
+      box-shadow: 0 0 10px rgba(127, 155, 112, 0.45);
+      margin-right: 8px;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 600px) {
+      nav { padding: 28px 20px 0; }
+      .hero { padding: 100px 20px 80px; }
+      .terminal-section, .cta { padding-left: 20px; padding-right: 20px; }
+      footer { padding: 24px 20px 32px; flex-direction: column; align-items: flex-start; }
+      .hero h1 { font-size: clamp(2.2rem, 10vw, 3rem); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-bg"></div>
+
+  <div class="hero-wrap">
+    <nav>
+      <a href="#top" class="brand">Autark</a>
+      <div class="nav-links">
+        <a href="#contact" class="mono">Access</a>
+      </div>
+    </nav>
+    <section class="hero" id="top">
+      <div class="eyebrow mono">Autonomous customer acquisition</div>
+      <h1>Autark finds <em>customers</em><br />for your product.</h1>
+      <p class="sub">You bring the product.</p>
+      <p class="sub"><strong>Autark does not build it.</strong></p>
+      <p class="sub">It figures out who should buy, where to find them, and what to say &mdash; and keeps iterating until the market responds.</p>
+    </section>
+  </div>
+
+  <section class="terminal-section">
+    <div class="terminal">
+      <div class="terminal-top">
+        <div class="terminal-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="mono" style="color: var(--muted); font-size: 0.72rem;">Autark Runtime</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line"><span class="prompt">&gt;</span> read product brief + landing page</div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> infer ICP: <span class="good">who needs this most, right now?</span></div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> find channels: inboxes / communities / directories</div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> write channel-specific outreach</div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> track replies, dead ends, objections</div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> tighten ICP + message from signal</div>
+        <div class="terminal-line"><span class="prompt">&gt;</span> loop</div>
+        <div class="terminal-line dim">keep finding people who actually want the product.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <h2>Send the product.<br />Autark goes after the market.</h2>
+    <p class="desc">
+      For founders with a real product and no repeatable way to get customers yet.
+    </p>
+
+    <form class="cta-form" id="access-form">
+      <div class="field">
+        <label class="mono" for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" />
+      </div>
+      <div class="field">
+        <label class="mono" for="product-url">Product URL</label>
+        <input id="product-url" name="product-url" type="text" placeholder="yourproduct.com" />
+      </div>
+      <button class="btn" type="submit" style="width: 100%;">Get access</button>
+      <p class="note" id="form-note">Goes straight to Kushal.</p>
+    </form>
+  </section>
+
+  <footer>
+    <span><span class="status-dot"></span>Autark</span>
+    <a href="https://x.com/KushalSM5" target="_blank" rel="noopener" aria-label="Twitter" class="twitter-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+  </footer>
+
+  <script>
+    const CONTACT_URL = "https://script.google.com/macros/s/AKfycbx09f-4aNddxzmVVUStNJwjzVip5u3PqVYN7GSgO83FDz5DqYLEFqy4ysARdZ6oeDo8rA/exec";
+    const PRODUCT = "autark";
+
+    const form = document.getElementById("access-form");
+    const note = document.getElementById("form-note");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const productUrl = document.getElementById("product-url").value.trim();
+      if (!email || !email.includes("@")) {
+        document.getElementById("email").focus();
+        return;
+      }
+      const btn = form.querySelector("button[type=submit]");
+      const original = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = "Sending…";
+      try {
+        await fetch(CONTACT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            product: PRODUCT,
+            email,
+            message: productUrl ? "Product URL: " + productUrl : "",
+            source: location.href,
+          }),
+        });
+        form.reset();
+        note.textContent = "Got it — I'll be in touch.";
+        btn.textContent = "Sent ✓";
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = original;
+        note.textContent = "Send failed. Email kushalsokke@gmail.com instead.";
+      }
+    });
+  </script>
+
+  <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+  <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
+</body>
+</html>
